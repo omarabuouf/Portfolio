@@ -1,0 +1,228 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional SEO Portfolio of Omar Atef Abuouf, a data-driven SEO specialist based in Egypt.">
+    <meta name="keywords" content="SEO Specialist, Omar Atef Abuouf, SEO Portfolio, Digital Marketing, Egypt SEO">
+    <meta name="author" content="Omar Atef Abuouf">
+    <title>Omar Atef Abuouf - SEO Specialist</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <img src="profile.jpg" alt="Omar Atef Abuouf - Professional Photo" class="profile-photo">
+            <div class="header-text">
+                <h1>Omar Atef Abuouf</h1>
+                <p>Professional, Data-Driven SEO Specialist</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <ul>
+            <li><a href="#contact">Contact Information</a></li>
+            <li><a href="#summary">Professional Summary</a></li>
+            <li><a href="#case-study">Featured Case Study</a></li>
+            <li><a href="#experience">Additional Experience</a></li>
+            <li><a href="#certifications">Certifications & Skills</a></li>
+            <li><a href="#resources">Portfolio Resources</a></li>
+            <li><a href="#connect">Let's Connect</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="contact" class="section">
+            <h2>Contact Information</h2>
+            <p><strong>Location:</strong> Egypt</p>
+            <p><strong>Email:</strong> <a href="mailto:omarabwowf9@gmail.com">omarabwowf9@gmail.com</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/omar-atef-abuouf" target="_blank">linkedin.com/in/omar-atef-abuouf</a></p>
+        </section>
+
+        <section id="summary" class="section">
+            <h2>Professional Summary</h2>
+            <p>I specialize in end-to-end SEO strategies, combining technical audits, keyword research, and content optimization to drive organic growth. With hands-on experience in e-commerce and niche markets, I leverage industry-leading tools to deliver measurable results.</p>
+            <h3>Core Approach:</h3>
+            <ul>
+                <li>Data-driven insights balanced with user intent analysis</li>
+                <li>Scalable, high-impact campaign development</li>
+                <li>Technical excellence combined with content strategy</li>
+            </ul>
+            <h3>Primary Tools:</h3>
+            <p>SEMrush, Google Search Console, Ubersuggest, Screaming Frog, Google Analytics</p>
+        </section>
+
+        <section id="case-study" class="section">
+            <h2>Featured Case Study: Petshome.com.eg</h2>
+            <h3>Project Overview</h3>
+            <p><strong>Client:</strong> Leading Egyptian e-commerce store for pet supplies</p>
+            <p><strong>Objective:</strong> Improve organic visibility, fix technical gaps, and align content with search intent</p>
+            <h3>Deliverables & Results</h3>
+            <h4>Technical SEO Audit</h4>
+            <ul>
+                <li>Issues Identified: 15+ critical technical problems</li>
+                <li>404 errors and broken links</li>
+                <li>Redirect chain complications</li>
+                <li>Missing metadata elements</li>
+                <li>Solutions Implemented:</li>
+                <li>301 redirect optimizations</li>
+                <li>H1 tag restructuring</li>
+                <li>Image ALT text enhancement</li>
+            </ul>
+            <h4>Keyword Strategy Development</h4>
+            <ul>
+                <li>Research Scope: 50+ high-intent keywords mapped</li>
+                <li>Target Examples: "pet grooming Egypt"</li>
+                <li>Search Volume Range: 480–2,900 monthly searches</li>
+                <li>Focus: Intent-based keyword prioritization</li>
+            </ul>
+            <h4>Comprehensive Competitor Analysis</h4>
+            <ul>
+                <li>Competitors Analyzed: AminPetShop, Petsegypt, Amazon</li>
+                <li>Key Findings:</li>
+                <li>Market gap in educational content</li>
+                <li>Weak call-to-action implementations</li>
+                <li>Content strategy opportunities identified</li>
+            </ul>
+            <h4>Content Optimization Strategy</h4>
+            <ul>
+                <li>Product Pages: Enhanced with FAQs and detailed usage guides</li>
+                <li>Blog Content Proposals:</li>
+                <li>"Wet vs. Dry Cat Food: Health Benefits"</li>
+                <li>Educational pet care topics</li>
+                <li>Focus: User-centric, search-optimized content</li>
+            </ul>
+            <h4>Success Metrics & Targets</h4>
+            <ul>
+                <li>Primary Goal: 30–50% organic traffic growth within 6 months</li>
+                <li>Measurement: Ongoing tracking through Google Analytics and Search Console</li>
+            </ul>
+        </section>
+
+        <section id="experience" class="section">
+            <h2>Additional Experience</h2>
+            <h3>SportsNutritionWales.co.uk | SEO Assistant</h3>
+            <h4>Key Contributions:</h4>
+            <ul>
+                <li>Optimized metadata for 20+ product categories</li>
+                <li>Conducted comprehensive keyword research for fitness audiences</li>
+                <li>Developed content strategies for health and nutrition market</li>
+            </ul>
+        </section>
+
+        <section id="certifications" class="section">
+            <h2>Certifications & Skills</h2>
+            <h3>Professional Certifications</h3>
+            <ul>
+                <li><img src="certificate-digital-marketing.jpg" alt="Google Digital Marketing & E-commerce Certificate" style="max-width: 200px;"> Google Digital Marketing & E-commerce (Google - 2025) - <a href="https://coursera.org/verify/VNXE8MR96ZFE" target="_blank">Verify</a></li>
+                <li><img src="certificate-attract-engage.jpg" alt="Attract and Engage Customers with Digital Marketing Certificate" style="max-width: 200px;"> Attract and Engage Customers with Digital Marketing (Google - 2025) - <a href="https://coursera.org/verify/FU1CVX9YRDH3" target="_blank">Verify</a></li>
+                <li><img src="certificate-advanced-content.jpg" alt="Advanced Content and Social Tactics Certificate" style="max-width: 200px;"> Advanced Content and Social Tactics (UC Davis - 2025) - <a href="https://coursera.org/verify/EFWKTY81V0XS" target="_blank">Verify</a></li>
+            </ul>
+            <h3>Core Competencies</h3>
+            <h4>Technical Skills</h4>
+            <ul>
+                <li>Technical SEO audits & implementation</li>
+                <li>Keyword research & strategic mapping</li>
+                <li>Content strategy & optimization</li>
+                <li>Performance tracking & analysis</li>
+            </ul>
+            <h4>Professional Tools</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>SEO Tools</th>
+                        <th>Analytics</th>
+                        <th>Technical</th>
+                        <th>Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SEMrush</td>
+                        <td>Google Analytics</td>
+                        <td>Screaming Frog</td>
+                        <td>Excel/Sheets</td>
+                    </tr>
+                    <tr>
+                        <td>Ubersuggest</td>
+                        <td>Google Search Console</td>
+                        <td>-</td>
+                        <td>Google Workspace</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="resources" class="section">
+            <h2>Portfolio Resources</h2>
+            <p>Available Documentation</p>
+            <ul>
+                <li><a href="https://1drv.ms/w/c/88a851a84c15165c/EcIz3EnWkxROkGjj53tAoYkB81QfzmJ3On-OqkUBa97rIA?e=0JCRug" target="_blank">Full SEO Audit Report - Complete technical analysis and recommendations</a></li>
+                <li><a href="https://1drv.ms/x/c/88a851a84c15165c/Ec1f8l_di4lLicbbRk913N8Bk0ngI-Wh0zYyONyp_oiARA?e=Gfzukg" target="_blank">Keyword Research Matrix - Comprehensive keyword mapping and prioritization</a></li>
+                <li><a href="https://1drv.ms/x/c/88a851a84c15165c/Ed3o1z8lj-dEtXNKcDp5rW0BGj36laHJk413jeowSoTUkw?e=hhhagM" target="_blank">Competitor Analysis Report - Detailed competitive landscape assessment</a></li>
+                <li><a href="https://1drv.ms/x/c/88a851a84c15165c/EdXyaWkjCftEpy6pSoBn4hMBiMFR4q5eAd0UFgoz1s4ksg?e=9och1q" target="_blank">Content Audit Summary - Content gap analysis and optimization roadmap</a></li>
+            </ul>
+            <p>Note: If there are any issues with links, you can contact me.</p>
+        </section>
+
+        <section id="connect" class="section">
+            <h2>Let's Connect</h2>
+            <p>Ready to help your business rank higher and convert more visitors.</p>
+            <p>I bring a combination of technical expertise, strategic thinking, and proven results to every SEO project. Whether you need a comprehensive audit, ongoing optimization, or strategic consultation, I'm here to help drive your organic growth.</p>
+            <h3>Get in touch:</h3>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:omarabwowf9@gmail.com">omarabwowf9@gmail.com</a></li>
+                <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/omar-atef-abuouf" target="_blank">Connect with me professionally</a></li>
+            </ul>
+            <p>Portfolio last updated: 2025 | Available for immediate consultation and project work</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Omar Atef Abuouf. All rights reserved.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
